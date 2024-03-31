@@ -1,0 +1,45 @@
+
+    /* <p> you should refer to a view to stick your popup wherever u want.
+     * e.g. Button button  = (Button) findviewbyId(R.id.btn);
+     *     if(popupWindow != null)
+     *         showPopup(button); </p>
+     **/
+    public void showPopup(View v) {
+
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.popup_add_category_layout, null);
+
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                400,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+
+
+        /*LinearLayout layoutIncome = popupView.findViewById(R.id.layout_income);
+        layoutIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.Logger(tag, "Income Clicking");
+
+                Intent intent = new Intent(context, AddCategory.class);
+                intent.putExtra(Constant.INTENT_CATEGORY_TYPE, "income");
+                startActivity(intent);
+
+                popupWindow.dismiss();
+            }
+        });*/
+
+      
+
+        popupWindow.showAsDropDown(v, -330, -10);
+
+    }

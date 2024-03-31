@@ -1,0 +1,61 @@
+ActivityResultLauncher<Intent> selectorLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> handleActivityResult(result, SELECT_COUNTRY_REQUEST)
+        );
+
+
+ private void handleActivityResult(ActivityResult result, int requestCode) {
+        if (requestCode == SELECT_COUNTRY_REQUEST) {
+
+            Intent data = result.getData();
+            if (data != null && result.getResultCode() == RESULT_OK) {
+
+                if (requestCode == SELECT_COUNTRY_REQUEST) {
+                    countryModal = data.getParcelableExtra(Constant.INTENT_SELECTED_COUNTRY);
+                    btnSelectCountry.setText(countryModal.getCurrencyName() + " ( " + countryModal.getCurrencySymbol() + " )");
+                }
+
+
+            }
+
+
+        }
+    }
+
+      selectorLauncher.launch(intent);
+
+
+/// handle Activity Result from Camera and Gallery
+
+private void handleActivityResult(ActivityResult result, int requestCode) {
+        Intent data = result.getData();
+        Bitmap photo = null;
+
+        if (data != null && result.getResultCode() == RESULT_OK) {
+
+            switch (requestCode) {
+                case REQUEST_CODE_SELECT_PICTURE_FROM_CAMERA:
+                    photo = (Bitmap) data.getExtras().get("data");
+                    break;
+
+                case REQUEST_CODE_SELECT_PICTURE_FROM_GALLERY:
+
+                    Uri selectedImage = data.getData();
+                    try {
+                        photo = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+            if (photo != null) {
+
+               
+
+            }
+
+        }
+
+    }
+

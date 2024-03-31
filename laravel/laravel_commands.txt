@@ -1,0 +1,74 @@
+**************
+LIBRARIES LINK
+**************
+
+https://github.com/barryvdh/laravel-ide-helper
+
+Instructions :-
+
+1) composer require --dev barryvdh/laravel-ide-helper ( download library )
+2) php artisan ide-helper:generate ( generation of Eloquent )
+3) php artisan ide-helper:meta 
+
+Note :-
+You have to run above command so that it would work perfectly
+
+****************
+LARAVEL COMMANDS
+****************
+
+composer create-project laravel/laravel
+php artisan serve ( start server )
+
+===============
+CREATE DB TABLE
+===============
+
+php artisan make:migration create_available_countries_table
+php artisan migrate ( this command create the db table from migration db file )
+
+=========================
+CREATE CONTROLLER + MODEL
+=========================
+
+php artisan make:controller UserController ( only controller )
+php artisan make:model Todo ( only modal )
+php artisan make:controller UserController -m User ( controller + model )
+php artisan make:controller api/OwnerController --model=Owner --resource ( create controller + modal + functions )
+
+=================
+CREATE MIDDLEWARE
+=================
+
+php artisan make:middleware CustomVerifyTokenMiddleware
+
+===========================
+GENERATE COLUMNS ATTRIBUTES
+===========================
+
+php artisan ide-helper:models "App\Models\Business" --write-mixin (-M) ( use ide-helper library )
+
+=============
+SYMBOLIC LINK
+=============
+
+Route::get('/symlink', function () {
+    Artisan::call('storage:link');
+});
+
+==================
+IMPORTANT COMMANDS
+==================
+
+Note :- Below commands used to remove all caches and restart server, these command can be executed in 
+the written order.
+
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear 
+
+below are not commands, these are action
+have to manually close the connect and xamp then restart xamp and restart laravel server
+restart apache server
+restart laravel server
+

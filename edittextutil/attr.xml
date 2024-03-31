@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<declare-styleable name="SofiaProEdittext">
+
+        <attr name="sofiaProFontFamily" format="enum">
+
+            <enum name="ultralight" value="1"/>
+            <enum name="extralight" value="2"/>
+            <enum name="light" value="3"/>
+            <enum name="regular" value="4"/>
+            <enum name="medium" value="5"/>
+            <enum name="bold" value="6"/>
+            <enum name="semibold" value="7"/>
+            <enum name="black" value="8"/>
+
+        </attr>
+      
+
+</declare-styleable>
+
+</resources>

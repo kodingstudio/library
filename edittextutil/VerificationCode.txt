@@ -1,0 +1,78 @@
+ <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="45dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:gravity="center">
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_code_01"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textColor="?attr/colorBlack"
+                android:textSize="@dimen/nm_txt_size"
+                android:background="@drawable/bg_input_ultra_light_grey"
+                android:textAppearance="@font/sofiaproregularaz"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:nextFocusForward="@id/edit_code_02"
+                android:imeOptions="actionNext"
+                ></androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_code_02"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:textColor="?attr/colorBlack"
+                android:inputType="number"
+                android:textSize="@dimen/nm_txt_size"
+                android:background="@drawable/bg_input_ultra_light_grey"
+                android:textAppearance="@font/sofiaproregularaz"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:nextFocusForward="@id/edit_code_03"
+                android:imeOptions="actionNext"
+                ></androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_code_03"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textColor="?attr/colorBlack"
+                android:textSize="@dimen/nm_txt_size"
+                android:background="@drawable/bg_input_ultra_light_grey"
+                android:textAppearance="@font/sofiaproregularaz"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:nextFocusForward="@id/edit_code_04"
+                android:imeOptions="actionNext"
+                ></androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_code_04"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textColor="?attr/colorBlack"
+                android:textSize="@dimen/nm_txt_size"
+                android:background="@drawable/bg_input_ultra_light_grey"
+                android:textAppearance="@font/sofiaproregularaz"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:imeOptions="actionPrevious"
+                ></androidx.appcompat.widget.AppCompatEditText>
+
+
+        </LinearLayout>

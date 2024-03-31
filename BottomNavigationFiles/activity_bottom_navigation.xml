@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentationutil.ui.activityutil.BottomNavigation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.haris.ecommerce.presentationutil.ui.customutil.LockableViewPager
+            android:id="@+id/view_pager_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            ></com.haris.ecommerce.presentationutil.ui.customutil.LockableViewPager>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_main"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:tabIndicatorHeight="1px"
+            app:tabPaddingStart="10dp"
+            app:tabPaddingEnd="10dp"
+            app:tabMaxWidth="0dp"
+            app:tabMinWidth="0dp"
+            android:layout_gravity="start"
+            android:clipToPadding="false"
+            android:fillViewport="false"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:background="?attr/colorWhite"
+            app:tabIndicatorColor="@color/colorTransparent"></com.google.android.material.tabs.TabLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+

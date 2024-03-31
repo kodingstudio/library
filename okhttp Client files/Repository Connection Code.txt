@@ -1,0 +1,87 @@
+ JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("email", userModal.getEmail());
+            jsonObject.put("password", userModal.getPassword());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        String json = jsonObject.toString();
+        Needle.onBackgroundThread().execute(new UiRelatedProgressTask<ResponseObject, Integer>() {
+
+            @Override
+            protected void onProgressUpdate(Integer integer) {
+                //do nothing
+            }
+
+            @Override
+            protected ResponseObject doWork() {
+
+                RequestBody body = RequestBody.create(json, MediaType.get("application/json; charset=utf-8"));
+                Request request = new Request.Builder()
+                        .url(Constant.baseUrl+ "/v1/app/auth/login")
+                        .post(body)
+                        .build();
+                try (Response response = MyApplication.getHttpClient().newCall(request).execute()) {
+
+                    assert response.body() != null;
+                    return new ResponseObject(response.code(), response.body().string());
+
+                } catch (IOException e) {
+                    ConnectionSingleton.getInstance().getConnectionSubject().update(408, e.getMessage());
+                    return null;
+                }
+
+            }
+
+            @Override
+            protected void thenDoUiRelatedWork(ResponseObject data) {
+
+                if (data == null)
+                    return;
+
+                Utility.Logger(getClass().getSimpleName(), data.getResponse());
+                switch (data.getCode()) {
+                    case 200:
+                    case 201:
+                    case 204:
+
+                        LoginUser loginUser = gson.fromJson(data.getResponse(), LoginUser.class);
+                        Data dt = loginUser.getData();
+                        User user = dt.getUser();
+
+                        viewModel.userLiveData.setValue(new UserModal(
+                                user.getId(),
+                                user.getCountryId(),
+                                user.getCurrencyCode(),
+                                user.getCurrencySymbol(),
+                                user.getName(),
+                                user.getEmail(),
+                                dt.getToken(),
+                                dt.getTokenType()
+                        ));
+
+                        break;
+
+                    default:
+
+                        try {
+
+                            JSONObject jsonObject = new JSONObject(data.getResponse());
+                            ConnectionSingleton.getInstance().getConnectionSubject().update(data.getCode(), jsonObject.getString("message"));
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
+                        break;
+
+                }
+
+
+            }
+
+
+        });

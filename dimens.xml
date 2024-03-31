@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="xx_hd_txt_size">20sp</dimen>
+    <dimen name="hd_txt_size">18sp</dimen>
+    <dimen name="lb_txt_size">16sp</dimen>
+    <dimen name="nm_txt_size">14sp</dimen>
+    <dimen name="sm_txt_size">12sp</dimen>
+    <dimen name="xx_sm_txt_size">10sp</dimen>
+    
+</resources>

@@ -1,0 +1,93 @@
+*******************************
+common error codes and messages
+*******************************
+
+define("SUCCESS_CODE_OK", "200");
+define("SUCCESS_CODE_CREATED", "201");
+define("SUCCESS_CODE_NO_CONTENT", "204");
+
+define("ERROR_CODE_BAD_REQUEST", "400");
+define("ERROR_CODE_UN_AUTHORIZED", "401");
+define("ERROR_CODE_FORBIDDEN", "403");
+define("ERROR_CODE_NOT_FOUND", "404");
+define("ERROR_CODE_CONFLICT", "409");
+define("ERROR_CODE_INTERNAL_ERROR", "500");
+
+define("DONE", "Operation done");
+define("Failed", "Operation failed");
+define("RECORD_ZERO", "No record");
+define("RECORD_CREATED", "Record created");
+define("RECORD_UPDATED", "Record updated");
+define("RECORD_DELETE", "Record deleted");
+define("RECORD_NOT_UPDATED", "Record not updated");
+define("RECORD_NOT_CREATED", "Record not created");
+define("RECORD_NOT_DELETED", "Record not deleted");
+define("VALIDATION_FAILED", "Validation failed");
+
+*************************************
+code for adding validation in laravel
+*************************************
+
+try {
+
+            $request->validate([
+                'country_id' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+       
+
+} catch (ValidationException $e) {
+            // Validation failed, return a JSON response with validation errors
+            return response()->json(['message' => VALIDATION_FAILED, 'errors' => $e->errors()], ERROR_CODE_BAD_REQUEST);
+}
+
+*****************************************************************
+code for capturing exception regardign duplicate email in laravel
+******************************************************************
+
+try {
+} 
+catch (QueryException $e) {
+
+// Check if the exception is due to a duplicate entry
+   if ($e->errorInfo[1] == 1062)
+      return response()->json(['message' => 'Duplicate email'], ERROR_CODE_CONFLICT);
+
+// Handle other database-related exceptions if needed
+return response()->json(['message' => $e->getMessage()], ERROR_CODE_INTERNAL_ERROR);
+}
+
+
+*******************************
+code for generating random code
+*******************************
+
+public function generateRandomCode()
+    {
+        $code = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+        
+        // If leading zeros are not desired, you can remove the STR_PAD_LEFT argument:
+        // $code = random_int(0, 9999);
+
+        return $code;
+    }
+
+**********************************
+code for receiving data from array
+**********************************
+
+$images = [];
+$base64Images = $request['images'];
+foreach ($base64Images as $base64Image) {
+
+
+$imageContent = base64_decode($base64Image);
+$imgExtension = 'jpeg';
+$imageName = uniqid('receipt_') . '.' . $imgExtension;
+$images[] = $imageName;
+
+Storage::disk('public')->put('images/receipt/' . $imageName, $imageContent . '.' . $imgExtension);
+}

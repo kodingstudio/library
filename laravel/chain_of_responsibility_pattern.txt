@@ -1,0 +1,139 @@
+interface TransactionAddProcessHandler
+{
+
+    public function setNextHandler(TransactionAddProcessHandler $handler);
+
+    public function handle(Request $request, $responseObject = null);
+
+}
+
+class AddPrimaryTransaction implements TransactionAddProcessHandler
+{
+    private $handler;
+
+    public function setNextHandler(TransactionAddProcessHandler $handler)
+    {
+        // TODO: Implement setNextHandler() method.
+        $this->handler = $handler;
+    }
+
+    public function handle(Request $request, $responseObject = null)
+    {
+
+        try {
+
+            $request->validate([
+                'user_id' => 'required',
+                'primary_id' => 'required',
+                'secondary_id' => 'required',
+                'name' => 'required',
+                'description' => 'required',
+                'amount' => 'required',
+                'date' => 'required'
+            ]);
+
+            //Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+            $currentDate = now()->add(Carbon::parse($request['date'])->diff(now()));
+
+            $transaction = new Transaction();
+            $transaction->user_id = $request['user_id'];
+            $transaction->primary_id = $request['primary_id'];
+            $transaction->secondary_id = $request['secondary_id'];
+            $transaction->name = $request['name'];
+            $transaction->description = $request['description'];
+            $transaction->amount = $request['amount'];
+            $transaction->status = 'debit';
+            $transaction->created_at = $currentDate;
+            $transaction->updated_at = $currentDate;
+
+            $dataObject = new \stdClass();
+            if ($transaction->save()) {
+
+                $dataObject->id = $transaction->id;
+                $dataObject->code = SUCCESS_CODE_CREATED;
+                $dataObject->message = RECORD_CREATED;
+
+            } else {
+
+                $dataObject->code = ERROR_CODE_INTERNAL_ERROR;
+                $dataObject->message = RECORD_NOT_CREATED . ' while adding transaction at primary';
+                return $dataObject;
+
+            }
+            return $this->handler->handle($request, $dataObject);
+
+        } catch (ValidationException $e) {
+            // Validation failed, return a JSON response with validation errors
+
+            $dataObject = new \stdClass();
+            $dataObject->code = ERROR_CODE_BAD_REQUEST;
+            $dataObject->message = VALIDATION_FAILED;
+            $dataObject->error = $e->errors();
+            return $dataObject;
+
+        }
+
+
+    }
+}
+
+
+class FetchSecondaryHeadData implements TransactionAddProcessHandler
+{
+    private $handler;
+
+    public function setNextHandler(TransactionAddProcessHandler $handler)
+    {
+        // TODO: Implement setNextHandler() method.
+        $this->handler = $handler;
+    }
+
+    public function handle(Request $request, $responseObject = null)
+    {
+
+        try {
+
+            $request->validate([
+                'user_id' => 'required',
+                'primary_id' => 'required'
+            ]);
+
+            //Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+            $head = Head::whereId($request['primary_id'])->first();
+
+            if ($head != null) {
+
+                $responseObject->code = SUCCESS_CODE_OK;
+                $responseObject->message = RECORD_CREATED;
+                $responseObject->data->secondary_id = $head->id;
+                $responseObject->data->secondary_head_name = $head->name;
+                $responseObject->data->secondary_head_image = $head->image;
+                $responseObject->data->secondary_color_code = $head->color_code;
+                $responseObject->data->secondary_type = $head->type;
+
+                return $responseObject;
+
+            }
+            else {
+
+                $dataObject = new \stdClass();
+                $dataObject->code = ERROR_CODE_INTERNAL_ERROR;
+                $dataObject->message = 'Failed to find primary head';
+                return $dataObject;
+
+            }
+
+        } catch (ValidationException $e) {
+
+            // Validation failed, return a JSON response with validation errors
+
+            $dataObject = new \stdClass();
+            $dataObject->code = ERROR_CODE_BAD_REQUEST;
+            $dataObject->message = VALIDATION_FAILED;
+            $dataObject->error = $e->errors();
+            return $dataObject;
+
+        }
+
+    }
+}

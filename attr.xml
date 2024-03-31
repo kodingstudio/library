@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<declare-styleable name="ListOfColor">
+
+        <attr name="colorRed" format="color"/>
+        <attr name="colorOrange" format="color"/>
+        <attr name="colorDarkBlue" format="color"/>
+        <attr name="colorBlue" format="color"/>
+        <attr name="colorLightBlue" format="color"/>
+        <attr name="colorBlack" format="color"/>
+        <attr name="colorGrey" format="color"/>
+        <attr name="colorLightGrey" format="color"/>
+        <attr name="colorExtraLightGrey" format="color"/>
+        <attr name="colorUltraLightGrey" format="color"/>
+        <attr name="colorLight" format="color"/>
+        <attr name="colorWhite" format="color"/>
+        <attr name="colorGreen" format="color"/>
+        <attr name="colorParrot" format="color"/>
+
+    </declare-styleable>
+
+</resources>

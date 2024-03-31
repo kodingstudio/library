@@ -1,0 +1,17 @@
+buildTypes {
+
+        buildTypes.each {
+
+            it.buildConfigField 'String', 'BASE_URL', BASE_URL
+            it.buildConfigField 'String', 'PUBLISHER_ID', PUBLISHER_ID
+            it.buildConfigField 'String', 'ADMOB_APP_ID', ADMOB_APP_ID
+            it.buildConfigField 'String', 'ADMOB_BANNER_ID', ADMOB_BANNER_ID
+            it.buildConfigField 'String', 'ADMOB_TEST_DEVICE_ID', ADMOB_TEST_DEVICE_ID
+            it.buildConfigField 'String', 'ADMOB_PRIVACY_URL', ADMOB_PRIVACY_URL
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }

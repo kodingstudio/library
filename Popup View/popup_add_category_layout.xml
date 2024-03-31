@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_popup"
+    android:orientation="vertical">
+
+
+ <com.haris.proscanner.presentationutil.ui.textviewutil.SofiaProTextview
+        android:id="@+id/btn_a_z"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/nm_txt_size"
+        android:text="@string/title_a_z"
+        app:sofiaProFontFamily="regular"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/light_grey"/>
+
+
+</LinearLayout>
